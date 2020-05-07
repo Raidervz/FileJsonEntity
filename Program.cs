@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
-namespace FileJsonEntity
+namespace FileEntity
 {
     class Program
     {
         static void Main(string[] args)
         {
-            string Encriptphase = "&*&$^#UKJSHD9w98";
-            bool UseEncription = true;
+            string Encriptphase = "*&GO^6f46";
+            bool UseEncription = false;
             string FileName = "ModelTest.data";
-            string Directory = @"C:\Test\";
+            string MyDir = System.AppContext.BaseDirectory;
 
-            var ModelTestEntityTable = new FileEntity<ModelTest>(FileName, Directory,UseEncription,Encriptphase);
+            File.Delete(MyDir+FileName);
+
+            var ModelTestEntityTable = new FileEntity<ModelTest>(FileName, MyDir,UseEncription,Encriptphase);
 
             ModelTest FirstModelTest = new ModelTest() {
                 ID = 1,
@@ -47,7 +50,9 @@ namespace FileJsonEntity
             //Adding records to the Table
             ModelTestEntityTable.Add(FirstModelTest);
             ModelTestEntityTable.Add(SecondModelTest);
-            ModelTestEntityTable.Add(ThirdModelTest);
+            ModelTestEntityTable.Add(ThirdModelTest);            
+            ModelTestEntityTable.Add(FourModelTest);
+
 
             //Find All the Items
             modelTestList = ModelTestEntityTable.FindAll();                      
@@ -112,7 +117,7 @@ namespace FileJsonEntity
             });
 
             //FindFirst that contain
-            var modelTestFindFirst = ModelTestEntityTable.FindFirst(new Dictionary<string, string>() { {"name", "wize"} } );
+            var modelTestFindFirst = ModelTestEntityTable.FindFirst(new Dictionary<string, string>() { {"name", "Crazy"} } );
             Console.WriteLine("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
             Console.Write(nameof(ModelTest.ID) + ": ");
             Console.WriteLine(modelTestFindFirst.ID);
@@ -125,7 +130,7 @@ namespace FileJsonEntity
 
             //FindMany
             var modelTestFindMany = ModelTestEntityTable.FindMany(new Dictionary<string, string>() { {"lastname", "beauty"} } );
-            Console.WriteLine("ModelTestListCount :" + modelTestFindMany.Count.ToString());
+            Console.WriteLine("modelTestFindMany :" + modelTestFindMany.Count.ToString());
 
             Console.WriteLine("ModelTest Records.");
 

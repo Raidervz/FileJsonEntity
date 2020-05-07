@@ -1,0 +1,15 @@
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\bin\Debug\netcoreapp3.1\FileJsonEntity.exe
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\bin\Debug\netcoreapp3.1\FileJsonEntity.deps.json
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\bin\Debug\netcoreapp3.1\FileJsonEntity.runtimeconfig.json
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\bin\Debug\netcoreapp3.1\FileJsonEntity.runtimeconfig.dev.json
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\bin\Debug\netcoreapp3.1\FileJsonEntity.dll
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\bin\Debug\netcoreapp3.1\FileJsonEntity.pdb
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\obj\Debug\netcoreapp3.1\FileJsonEntity.csprojAssemblyReference.cache
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\obj\Debug\netcoreapp3.1\FileJsonEntity.csproj.CoreCompileInputs.cache
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\obj\Debug\netcoreapp3.1\FileJsonEntity.AssemblyInfoInputs.cache
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\obj\Debug\netcoreapp3.1\FileJsonEntity.AssemblyInfo.cs
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\obj\Debug\netcoreapp3.1\FileJsonEntity.csproj.CopyComplete
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\obj\Debug\netcoreapp3.1\FileJsonEntity.dll
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\obj\Debug\netcoreapp3.1\FileJsonEntity.pdb
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\obj\Debug\netcoreapp3.1\FileJsonEntity.genruntimeconfig.cache

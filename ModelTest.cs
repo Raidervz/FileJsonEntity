@@ -1,4 +1,4 @@
-namespace FileJsonEntity{
+namespace FileEntity{
     public class ModelTest
     {
         public int ID { get; set; } 

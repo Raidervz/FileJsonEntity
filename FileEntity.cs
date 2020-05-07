@@ -6,7 +6,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace FileJsonEntity
+namespace FileEntity
 {
 
     public class FileEntity<T> : IDisposable
@@ -85,7 +85,7 @@ namespace FileJsonEntity
 
         private void CreateJsonFile(string FullPath)
         {
-            File.WriteAllLines(FullPath, new string [] { EncriptValidator("[ ]")});
+            File.WriteAllText(FullPath, EncriptValidator("[ ]"));
         }
 
         private string EncriptValidator(string text)
@@ -124,7 +124,7 @@ namespace FileJsonEntity
 
             string jsonOutFile = JsonConvert.SerializeObject(_Entities);
 
-            File.WriteAllLines(_FullPath, new string[] {EncriptValidator(jsonOutFile)});
+            File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
 
             return _Entity;
         }
@@ -163,7 +163,7 @@ namespace FileJsonEntity
 
             string jsonOutFile = JsonConvert.SerializeObject(_Entities);
 
-            File.WriteAllLines(_FullPath, new string[] {EncriptValidator(jsonOutFile)});
+            File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
 
             return _Entity;
 
@@ -199,7 +199,7 @@ namespace FileJsonEntity
 
             string jsonOutFile = JsonConvert.SerializeObject(_Entities);
 
-            File.WriteAllLines(_FullPath, new string[] {EncriptValidator(jsonOutFile)});
+            File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
 
             return true;
         }
@@ -222,7 +222,7 @@ namespace FileJsonEntity
 
                 foreach (KeyValuePair<string, string> parameter in parameters)
                 {
-                    if (item[parameter.Key].ToString() == parameter.ToString())
+                    if (item[parameter.Key].ToString() == parameter.Value)
                     {
                         ExactMatch.Add(true);
                     }
@@ -262,7 +262,7 @@ namespace FileJsonEntity
 
                 foreach (KeyValuePair<string, string> parameter in parameters)
                 {
-                    if (item[parameter.Key].ToString() == parameter.ToString())
+                    if (item[parameter.Key].ToString() == parameter.Value)
                     {
                         ExactMatch.Add(true);
                     }
