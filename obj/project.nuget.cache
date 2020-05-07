@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "IWmyg/PA0mwxSl5H7rstWjpR9IQS3ZmzL+qyCQfBw2EddRZbgS09mVPXb5QX4c27vqqEJUXVwI2nkSRdEeYeJw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ramon\\Documents\\DotNetCore\\FileJsonEntity\\FileJsonEntity\\FileJsonEntity.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ramon\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
