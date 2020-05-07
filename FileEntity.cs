@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace FileJsonEntity
 {
 
-    public class FileJsonEntity<T> : IDisposable
+    public class FileEntity<T> : IDisposable
     {
         private  string _JsonFileName;
         private  string _JsonDir;
@@ -23,11 +23,11 @@ namespace FileJsonEntity
         private  bool _Encript;
         private  string _EncriptionKey;
 
-        public FileJsonEntity(string JsonFileName, string JsonDir, bool Encript = false, string EncrptionKey = default(string))
+        public FileEntity(string FileName, string Dir, bool Encript = false, string EncrptionKey = default(string))
         {
-            _JsonFileName = JsonFileName;
-            _JsonDir = JsonDir;
-            _FullPath = _JsonDir + _JsonFileName + ".json";
+            _JsonFileName = FileName;
+            _JsonDir = Dir;
+            _FullPath = _JsonDir + _JsonFileName;
             _Entities = new List<T>();
             _Entity = default(T);
             _Encript = Encript;
@@ -281,6 +281,20 @@ namespace FileJsonEntity
             _Entities = result;
 
             return _Entities;
+        }
+
+        public List<T> FindAll ()
+        {
+            ValidateJsonFile(_FullPath);
+
+            var jsonEncripted = File.ReadAllText(_FullPath);
+
+            var jsonFile = DecriptValidator(jsonEncripted);
+
+            JArray jObjectArray = JArray.Parse(jsonFile);
+
+            return jObjectArray.ToObject<List<T>>();
+
         }
 
         public void Dispose()
