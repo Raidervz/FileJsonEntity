@@ -60,12 +60,12 @@ namespace FileEntity
 
         private string Decript(string text)
         {
-            RijndaelManaged rijndaelCipher = new RijndaelManaged();
+            RijndaelManaged SecurityCipher = new RijndaelManaged();
             byte[] encryptedData = Convert.FromBase64String(text);
 
-            using (ICryptoTransform decryptor = rijndaelCipher.CreateDecryptor(_Key, _Vector))
+            using (ICryptoTransform decryptor = SecurityCipher.CreateDecryptor(_Key, _Vector))
             {
-                using (MemoryStream memStream = new MemoryStream())
+                using (MemoryStream memStream = new MemoryStream(encryptedData))
                 {
                     using (CryptoStream cryptoStream = new CryptoStream(memStream, decryptor, CryptoStreamMode.Read))
                     {

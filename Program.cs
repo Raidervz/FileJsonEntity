@@ -9,7 +9,7 @@ namespace FileEntity
         static void Main(string[] args)
         {
             string Encriptphase = "*&GO^6f46";
-            bool UseEncription = false;
+            bool UseEncription = true;
             string FileName = "ModelTest.data";
             string MyDir = System.AppContext.BaseDirectory;
 
