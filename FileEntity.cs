@@ -108,6 +108,8 @@ namespace FileEntity
 
         public T Add( T Entity)
         {
+            if(Entity ==null) throw new ArgumentNullException(nameof(Entity));
+
             ValidateJsonFile(_FullPath);
 
             var jsonEncripted = File.ReadAllText(_FullPath);
@@ -131,6 +133,8 @@ namespace FileEntity
 
         public T Update (T Entity, string index)
         {
+            if(Entity ==null) throw new ArgumentNullException(nameof(Entity));
+            if(string.IsNullOrWhiteSpace(index)) throw new ArgumentNullException(nameof(index));
             ValidateJsonFile(_FullPath);
 
             var jsonEncripted = File.ReadAllText(_FullPath);
@@ -171,6 +175,8 @@ namespace FileEntity
 
         public bool Delete( T Entity, string index)
         {
+            if(Entity ==null) throw new ArgumentNullException(nameof(Entity));
+            if(string.IsNullOrWhiteSpace(index)) throw new ArgumentNullException(nameof(index));            
             ValidateJsonFile(_FullPath);
 
             var jsonEncripted = File.ReadAllText(_FullPath);
@@ -206,6 +212,7 @@ namespace FileEntity
 
         public T FindFirst( Dictionary<string, string> parameters)
         {
+            if(parameters.Count ==0) throw new ArgumentNullException(nameof(parameters));
             ValidateJsonFile(_FullPath);
 
             var jsonEncripted = File.ReadAllText(_FullPath);
@@ -246,6 +253,7 @@ namespace FileEntity
 
         public List<T> FindMany (Dictionary<string, string> parameters)
         {
+            if(parameters.Count ==0) throw new ArgumentNullException(nameof(parameters));
             ValidateJsonFile(_FullPath);
 
             var jsonEncripted = File.ReadAllText(_FullPath);
