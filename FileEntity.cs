@@ -177,37 +177,45 @@ namespace FileEntity
         {
             if(Entity ==null) throw new ArgumentNullException(nameof(Entity));
             if(string.IsNullOrWhiteSpace(index)) throw new ArgumentNullException(nameof(index));            
+                        
             ValidateJsonFile(_FullPath);
 
-            var jsonEncripted = File.ReadAllText(_FullPath);
-
-            var jsonFile = DecriptValidator(jsonEncripted);
-
-            JArray jObjectArray = JArray.Parse(jsonFile);
-
-            string entityJson = JsonConvert.SerializeObject(Entity);
-
-            JObject entityJsonObject = JObject.Parse(entityJson);
-
-            JArray updatedJsonArray = new JArray();
-
-            foreach (var item in jObjectArray)
+            try 
             {
-                if (item[index].ToString() != entityJsonObject[index].ToString())
+                var jsonEncripted = File.ReadAllText(_FullPath);
+
+                var jsonFile = DecriptValidator(jsonEncripted);
+
+                JArray jObjectArray = JArray.Parse(jsonFile);
+
+                string entityJson = JsonConvert.SerializeObject(Entity);
+
+                JObject entityJsonObject = JObject.Parse(entityJson);
+
+                JArray updatedJsonArray = new JArray();
+
+                foreach (var item in jObjectArray)
                 {
-                    updatedJsonArray.Add(item);
+                    if (item[index].ToString() != entityJsonObject[index].ToString())
+                    {
+                        updatedJsonArray.Add(item);
+                    }
                 }
+
+                _Entities = updatedJsonArray.ToObject<List<T>>();
+
+                _Entity = Entity;
+
+                string jsonOutFile = JsonConvert.SerializeObject(_Entities);
+
+                File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
+
+                return true;
             }
-
-            _Entities = updatedJsonArray.ToObject<List<T>>();
-
-            _Entity = Entity;
-
-            string jsonOutFile = JsonConvert.SerializeObject(_Entities);
-
-            File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
-
-            return true;
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public T FindFirst( Dictionary<string, string> parameters)
