@@ -14,8 +14,6 @@ namespace FileEntity
         private  string _JsonFileName;
         private  string _JsonDir;
         private  string _FullPath;
-        private T _Entity;
-        private List<T> _Entities;
         private  byte[] _SALT;
         private  byte[] _Key;
         private  byte[] _Vector;
@@ -28,8 +26,6 @@ namespace FileEntity
             _JsonFileName = FileName;
             _JsonDir = Dir;
             _FullPath = _JsonDir + _JsonFileName;
-            _Entities = new List<T>();
-            _Entity = default(T);
             _Encript = Encript;
             _EncriptionKey = EncrptionKey;
             _SALT = Encoding.ASCII.GetBytes(EncrptionKey);            
@@ -118,17 +114,15 @@ namespace FileEntity
 
             JArray jObjectArray = JArray.Parse(jsonFile);
 
-            _Entities = jObjectArray.ToObject<List<T>>();
+            var _Entities = jObjectArray.ToObject<List<T>>();
 
             _Entities.Add(Entity);
-
-            _Entity = Entity;
 
             string jsonOutFile = JsonConvert.SerializeObject(_Entities);
 
             File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
 
-            return _Entity;
+            return Entity;
         }
 
         public T Update (T Entity, string index)
@@ -161,15 +155,13 @@ namespace FileEntity
                 }
             }
 
-            _Entities = updatedJsonArray.ToObject<List<T>>();
-
-            _Entity = Entity;
+            var _Entities = updatedJsonArray.ToObject<List<T>>();
 
             string jsonOutFile = JsonConvert.SerializeObject(_Entities);
 
             File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
 
-            return _Entity;
+            return Entity;
 
         }
 
@@ -202,9 +194,7 @@ namespace FileEntity
                     }
                 }
 
-                _Entities = updatedJsonArray.ToObject<List<T>>();
-
-                _Entity = Entity;
+                var _Entities = updatedJsonArray.ToObject<List<T>>();
 
                 string jsonOutFile = JsonConvert.SerializeObject(_Entities);
 
@@ -254,9 +244,7 @@ namespace FileEntity
                 }
             }
 
-            _Entity = result;
-
-            return _Entity;
+            return result;
         }
 
         public List<T> FindMany (Dictionary<string, string> parameters)
@@ -294,9 +282,7 @@ namespace FileEntity
                 }
             }
 
-            _Entities = result;
-
-            return _Entities;
+            return result;
         }
 
         public List<T> FindAll ()
@@ -324,8 +310,6 @@ namespace FileEntity
             _EncriptionGenerator = null;
             _Key = null;
             _Vector = null;
-            _Entities = null;
-            _Entity = default(T);
         }
     }
 
