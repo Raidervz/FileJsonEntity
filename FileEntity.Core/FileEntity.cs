@@ -33,7 +33,14 @@ namespace FileEntity.Core
 
         private void CreateJsonFile(string FullPath)
         {
-            File.WriteAllText(FullPath, EncriptValidator("[ ]"));
+            try 
+            {
+                File.WriteAllText(FullPath, EncriptValidator("[ ]"));
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
 
         private string EncriptValidator(string text)
@@ -58,66 +65,81 @@ namespace FileEntity.Core
         {
             if(Entity ==null) throw new ArgumentNullException(nameof(Entity));
 
-            ValidateJsonFile(_FullPath);
+            try
+            {
+                ValidateJsonFile(_FullPath);
 
-            var jsonEncripted = File.ReadAllText(_FullPath);
+                var jsonEncripted = File.ReadAllText(_FullPath);
 
-            var jsonFile = DecriptValidator(jsonEncripted);
+                var jsonFile = DecriptValidator(jsonEncripted);
 
-            JArray jObjectArray = JArray.Parse(jsonFile);
+                JArray jObjectArray = JArray.Parse(jsonFile);
 
-            var _Entities = jObjectArray.ToObject<List<T>>();
+                var _Entities = jObjectArray.ToObject<List<T>>();
 
-            _Entities.Add(Entity);
+                _Entities.Add(Entity);
 
-            string jsonOutFile = JsonConvert.SerializeObject(_Entities);
+                string jsonOutFile = JsonConvert.SerializeObject(_Entities);
 
-            File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
+                File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
 
-            return Entity;
+                return Entity;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
 
         public T Update (T Entity, string index)
         {
             if(Entity ==null) throw new ArgumentNullException(nameof(Entity));
             if(string.IsNullOrWhiteSpace(index)) throw new ArgumentNullException(nameof(index));
-            ValidateJsonFile(_FullPath);
-
-            var jsonEncripted = File.ReadAllText(_FullPath);
-
-            var jsonFile = DecriptValidator(jsonEncripted);
-
-            JArray jObjectArray = JArray.Parse(jsonFile);
-
-            string entityJson = JsonConvert.SerializeObject(Entity);
-
-            JObject entityJsonObject = JObject.Parse(entityJson);
-
-            JArray updatedJsonArray = new JArray();
-
-            foreach (var item in jObjectArray)
+            
+            try
             {
-                if (item[index].ToString() == entityJsonObject[index].ToString())
+                ValidateJsonFile(_FullPath);
+
+                var jsonEncripted = File.ReadAllText(_FullPath);
+
+                var jsonFile = DecriptValidator(jsonEncripted);
+
+                JArray jObjectArray = JArray.Parse(jsonFile);
+
+                string entityJson = JsonConvert.SerializeObject(Entity);
+
+                JObject entityJsonObject = JObject.Parse(entityJson);
+
+                JArray updatedJsonArray = new JArray();
+
+                foreach (var item in jObjectArray)
                 {
-                    updatedJsonArray.Add(entityJsonObject);
+                    if (item[index].ToString() == entityJsonObject[index].ToString())
+                    {
+                        updatedJsonArray.Add(entityJsonObject);
+                    }
+                    else
+                    {
+                        updatedJsonArray.Add(item);
+                    }
                 }
-                else
-                {
-                    updatedJsonArray.Add(item);
-                }
+
+                var _Entities = updatedJsonArray.ToObject<List<T>>();
+
+                string jsonOutFile = JsonConvert.SerializeObject(_Entities);
+
+                File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
+
+                return Entity;
             }
-
-            var _Entities = updatedJsonArray.ToObject<List<T>>();
-
-            string jsonOutFile = JsonConvert.SerializeObject(_Entities);
-
-            File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
-
-            return Entity;
+            catch(Exception e)
+            {
+                throw e;
+            }
 
         }
 
-        public bool Delete( T Entity, string index)
+        public void Delete( T Entity, string index)
         {
             if(Entity ==null) throw new ArgumentNullException(nameof(Entity));
             if(string.IsNullOrWhiteSpace(index)) throw new ArgumentNullException(nameof(index));            
@@ -152,7 +174,6 @@ namespace FileEntity.Core
 
                 File.WriteAllText(_FullPath, EncriptValidator(jsonOutFile));
 
-                return true;
             }
             catch (Exception e)
             {
@@ -163,91 +184,115 @@ namespace FileEntity.Core
         public T FindFirst( Dictionary<string, string> parameters)
         {
             if(parameters.Count ==0) throw new ArgumentNullException(nameof(parameters));
-            ValidateJsonFile(_FullPath);
 
-            var jsonEncripted = File.ReadAllText(_FullPath);
-
-            var jsonFile = DecriptValidator(jsonEncripted);
-
-            JArray jObjectArray = JArray.Parse(jsonFile);
-
-            T result = default(T);
-
-            foreach (var item in jObjectArray)
+            try 
             {
-                List<bool> ExactMatch = new List<bool>();
+                ValidateJsonFile(_FullPath);
 
-                foreach (KeyValuePair<string, string> parameter in parameters)
+                var jsonEncripted = File.ReadAllText(_FullPath);
+
+                var jsonFile = DecriptValidator(jsonEncripted);
+
+                JArray jObjectArray = JArray.Parse(jsonFile);
+
+                T result = default(T);
+
+                foreach (var item in jObjectArray)
                 {
-                    if (item[parameter.Key].ToString() == parameter.Value)
+                    List<bool> ExactMatch = new List<bool>();
+
+                    foreach (KeyValuePair<string, string> parameter in parameters)
                     {
-                        ExactMatch.Add(true);
+                        if (item[parameter.Key].ToString() == parameter.Value)
+                        {
+                            ExactMatch.Add(true);
+                        }
+                        else
+                        {
+                            ExactMatch.Add(false);
+                        }
                     }
-                    else
+
+                    if(ExactMatch.FindAll( delegate(bool value) {return value == true;}).Count == parameters.Count)
                     {
-                        ExactMatch.Add(false);
+                        result = item.ToObject<T>();
+                        break;
                     }
                 }
 
-                if(ExactMatch.FindAll( delegate(bool value) {return value == true;}).Count == parameters.Count)
-                {
-                    result = item.ToObject<T>();
-                    break;
-                }
+                return result;
             }
-
-            return result;
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public List<T> FindMany (Dictionary<string, string> parameters)
         {
             if(parameters.Count ==0) throw new ArgumentNullException(nameof(parameters));
-            ValidateJsonFile(_FullPath);
 
-            var jsonEncripted = File.ReadAllText(_FullPath);
-
-            var jsonFile = DecriptValidator(jsonEncripted);
-
-            JArray jObjectArray = JArray.Parse(jsonFile);
-
-            List<T> result = new List<T>();
-
-            foreach (var item in jObjectArray)
+            try 
             {
-                List<bool> ExactMatch = new List<bool>();
+                ValidateJsonFile(_FullPath);
 
-                foreach (KeyValuePair<string, string> parameter in parameters)
+                var jsonEncripted = File.ReadAllText(_FullPath);
+
+                var jsonFile = DecriptValidator(jsonEncripted);
+
+                JArray jObjectArray = JArray.Parse(jsonFile);
+
+                List<T> result = new List<T>();
+
+                foreach (var item in jObjectArray)
                 {
-                    if (item[parameter.Key].ToString() == parameter.Value)
+                    List<bool> ExactMatch = new List<bool>();
+
+                    foreach (KeyValuePair<string, string> parameter in parameters)
                     {
-                        ExactMatch.Add(true);
+                        if (item[parameter.Key].ToString() == parameter.Value)
+                        {
+                            ExactMatch.Add(true);
+                        }
+                        else
+                        {
+                            ExactMatch.Add(false);
+                        }
                     }
-                    else
+
+                    if(ExactMatch.FindAll( delegate(bool value) {return value == true;}).Count == parameters.Count)
                     {
-                        ExactMatch.Add(false);
+                        result.Add(item.ToObject<T>());
                     }
                 }
 
-                if(ExactMatch.FindAll( delegate(bool value) {return value == true;}).Count == parameters.Count)
-                {
-                    result.Add(item.ToObject<T>());
-                }
+                return result;
             }
-
-            return result;
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public List<T> FindAll ()
         {
-            ValidateJsonFile(_FullPath);
 
-            var jsonEncripted = File.ReadAllText(_FullPath);
+            try 
+            {
+                ValidateJsonFile(_FullPath);
 
-            var jsonFile = DecriptValidator(jsonEncripted);
+                var jsonEncripted = File.ReadAllText(_FullPath);
 
-            JArray jObjectArray = JArray.Parse(jsonFile);
+                var jsonFile = DecriptValidator(jsonEncripted);
 
-            return jObjectArray.ToObject<List<T>>();
+                JArray jObjectArray = JArray.Parse(jsonFile);
+
+                return jObjectArray.ToObject<List<T>>();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
 
         }
 
