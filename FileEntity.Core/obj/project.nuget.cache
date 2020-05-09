@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "mFCfZOK6HKSbdayRlw1mTPzMBQZ/bNm5XTpUruD7mCeHKzDpZLH5DEhFpUW8cZzKEhu1OVCnB05BkW3Z9MCPBw==",
+  "dgSpecHash": "bkh00A4ocU/pvMtOksxgZI23KflEKDIhqIb/sxuZExs1X410bJIoALmKHjkBTd9UhZalMYLgfCj5yF+/vhctVQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ramon\\Documents\\DotNetCore\\FileJsonEntity\\FileJsonEntity\\FileEntity.Core\\FileEntity.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ramon\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\ramon\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []
 }

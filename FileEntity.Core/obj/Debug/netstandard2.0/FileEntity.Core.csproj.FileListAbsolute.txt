@@ -1,0 +1,9 @@
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\FileEntity.Core\obj\Debug\netstandard2.0\FileEntity.Core.csprojAssemblyReference.cache
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\FileEntity.Core\obj\Debug\netstandard2.0\FileEntity.Core.csproj.CoreCompileInputs.cache
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\FileEntity.Core\obj\Debug\netstandard2.0\FileEntity.Core.AssemblyInfoInputs.cache
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\FileEntity.Core\obj\Debug\netstandard2.0\FileEntity.Core.AssemblyInfo.cs
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\FileEntity.Core\bin\Debug\netstandard2.0\FileEntity.Core.deps.json
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\FileEntity.Core\bin\Debug\netstandard2.0\FileEntity.Core.dll
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\FileEntity.Core\bin\Debug\netstandard2.0\FileEntity.Core.pdb
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\FileEntity.Core\obj\Debug\netstandard2.0\FileEntity.Core.dll
+C:\Users\ramon\Documents\DotNetCore\FileJsonEntity\FileJsonEntity\FileEntity.Core\obj\Debug\netstandard2.0\FileEntity.Core.pdb
