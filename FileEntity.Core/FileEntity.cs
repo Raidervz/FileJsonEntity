@@ -6,7 +6,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace FileEntity
+namespace FileEntity.Core
 {
 
     public class FileEntity<T> : IDisposable
@@ -14,10 +14,6 @@ namespace FileEntity
         private  string _JsonFileName;
         private  string _JsonDir;
         private  string _FullPath;
-        private  byte[] _SALT;
-        private  byte[] _Key;
-        private  byte[] _Vector;
-        private  Rfc2898DeriveBytes _EncriptionGenerator;
         private  bool _Encript;
         private  string _EncriptionKey;
 
@@ -28,50 +24,6 @@ namespace FileEntity
             _FullPath = _JsonDir + _JsonFileName;
             _Encript = Encript;
             _EncriptionKey = EncrptionKey;
-            _SALT = Encoding.ASCII.GetBytes(EncrptionKey);            
-            _EncriptionGenerator = new Rfc2898DeriveBytes(EncrptionKey, _SALT);
-            _Key = _EncriptionGenerator.GetBytes(32);
-            _Vector = _EncriptionGenerator.GetBytes(16);
-        }
-
-        private string Encript(string text)
-        {
-            RijndaelManaged SecurityCipher = new RijndaelManaged { Key = _Key, IV = _Vector};
-
-            byte[] baseText = Encoding.Unicode.GetBytes(text);
-
-            using (ICryptoTransform encriptor = SecurityCipher.CreateEncryptor())
-            {
-                using (MemoryStream memStream = new MemoryStream())
-                {
-                    using (CryptoStream cryptoStream = new CryptoStream(memStream, encriptor, CryptoStreamMode.Write))
-                    {
-                        cryptoStream.Write(baseText, 0, baseText.Length);
-                        cryptoStream.FlushFinalBlock();
-                        return Convert.ToBase64String(memStream.ToArray());                        
-                    }
-                }
-            }
-        }
-
-        private string Decript(string text)
-        {
-            RijndaelManaged SecurityCipher = new RijndaelManaged();
-            byte[] encryptedData = Convert.FromBase64String(text);
-
-            using (ICryptoTransform decryptor = SecurityCipher.CreateDecryptor(_Key, _Vector))
-            {
-                using (MemoryStream memStream = new MemoryStream(encryptedData))
-                {
-                    using (CryptoStream cryptoStream = new CryptoStream(memStream, decryptor, CryptoStreamMode.Read))
-                    {
-                        byte[] baseText = new byte[encryptedData.Length];
-                        int cryptoStreamCount = cryptoStream.Read(baseText, 0, baseText.Length);
-                        return Encoding.Unicode.GetString(baseText, 0, cryptoStreamCount);
-                    }
-                }
-            }
-
         }
 
         private bool CheckJsonFileExist(string FullPath)
@@ -86,12 +38,12 @@ namespace FileEntity
 
         private string EncriptValidator(string text)
         {
-            return _Encript ? Encript(text) : text;
+            return _Encript ? Encription.Encript(text, _EncriptionKey) : text;
         }
 
         private string DecriptValidator(string text)
         {
-            return _Encript ? Decript(text) : text;
+            return _Encript ? Encription.Decript(text, _EncriptionKey) : text;
         }
 
         private void ValidateJsonFile( string FullPath)
@@ -306,10 +258,6 @@ namespace FileEntity
             _FullPath = default(string);
             _Encript = default(bool);
             _EncriptionKey = default(string);
-            _SALT = default(byte[]);            
-            _EncriptionGenerator = null;
-            _Key = null;
-            _Vector = null;
         }
     }
 

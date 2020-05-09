@@ -1,5 +1,6 @@
-namespace FileEntity{
-    public class ModelTest
+namespace FileEntity.ConsoleTest
+{
+        public class ModelTest
     {
         public int ID { get; set; } 
 
